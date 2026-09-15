@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import dns from 'node:dns';
 import nodemailer from 'nodemailer';
-
+import path from 'path';
 // DNS resolution fix for MongoDB Atlas SRV records
 dns.setDefaultResultOrder('ipv4first');
 try {
@@ -178,6 +178,14 @@ app.get('/api/health', (req, res) => {
     recipientEmail,
   });
 });
+
+const frontendPath = path.join(__dirname, "dist");
+
+app.use(express.static(frontendPath));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 NX ADIS Backend Server running on http://localhost:${PORT}`);
