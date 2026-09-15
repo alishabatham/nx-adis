@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 import dns from 'node:dns';
 import nodemailer from 'nodemailer';
 import path from 'path';
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // DNS resolution fix for MongoDB Atlas SRV records
 dns.setDefaultResultOrder('ipv4first');
 try {
